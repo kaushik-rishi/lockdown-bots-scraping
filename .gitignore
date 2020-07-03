@@ -1,0 +1,10 @@
+# output and input redirection files
+output.txt
+input.txt
+
+# temporary files
+temp.*
+practise.*
+
+# debug log files
+*.log
