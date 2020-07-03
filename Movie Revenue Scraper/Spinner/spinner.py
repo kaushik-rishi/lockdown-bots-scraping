@@ -58,7 +58,7 @@ class Spinner:
         """
 
         sys.stdout.write('\b'*12)
-        sys.stdout.write('[■■■■■■■■■■]\n\n')
+        sys.stdout.write('[■■■■■■■■■■]\n')
         self.busy = False
         time.sleep(self.delay)
         if exception is not None:
