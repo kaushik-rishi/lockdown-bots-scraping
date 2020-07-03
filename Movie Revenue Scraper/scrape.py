@@ -59,10 +59,10 @@ def get_HTML(url):
     Utility Function that takes in the URL and returns the response's html directly if the status code is 200
     """
 
-    respone = requests.get(url)
+    response = requests.get(url)
 
-    if respone.status_code == 200:
-        html_response = respone.content
+    if response.status_code == 200:
+        html_response = response.content
         return html_response
 
     # return None
