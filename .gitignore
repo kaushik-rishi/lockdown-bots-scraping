@@ -8,3 +8,6 @@ practise.*
 
 # debug log files
 *.log
+
+# some utility files
+box_table.html
