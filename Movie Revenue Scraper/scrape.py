@@ -21,12 +21,13 @@ import csv
 
 # For the spinners
 # from Spinner.spinner import Spinner
-from Spinner.spinnerEasy import Spinner
+from Spinner.spinner import Spinner
+from Spinner.spinnerEasy import SpinnerEasy
 
 
 # For utlitly
 import sys
-sys.stdout = open('output.txt', 'w')
+# sys.stdout = open('output.txt', 'w')
 
 # -------------------------------------------------------------------------- #
 
@@ -78,7 +79,7 @@ def get_URL(year=2020):
 # ---------------------------------------------------------------------------- #
 
 
-def parse():
+def parse(SERVICE_URL):
 
     main_html = get_HTML(SERVICE_URL)  # html of main file
     main_soup = BeautifulSoup(main_html, 'lxml')
@@ -87,19 +88,31 @@ def parse():
     tables = main_soup.findAll('table')[0]
     table_rows = tables.findAll('tr')
     # print(table_rows[0])
+
+    # this is going to ba a list of lists
+    rows_list = []
+
     for tr in table_rows:
+
+        row = []
 
         try:
             tds = tr.findAll('td')
+
             for td in tds:
                 print(td.text, end='     ')
+                row.append(td)
+
             print('\n\n')
 
         except:
             continue
 
+        rows_list.append(row)
 
-s
+    return rows_list
+
+
 if __name__ == '__main__':
 
     start_year = 2017
@@ -108,4 +121,4 @@ if __name__ == '__main__':
     HEADERS = ['Worldwide', 'Domestic', 'Domestic %', 'Foriegn', 'Foriegn %']
 
     with Spinner():
-        parse()
+        parse(get_URL(2020))
