@@ -146,10 +146,24 @@ if __name__ == '__main__':
     start_year = int(input('Enter the start year you want to parse from : '))
     end_year = int(input('Enter the year until which you want to parse : '))
 
+    if start_year < 1977 and end_year < 1977:
+        start_year = 1977
+        print('-_-')
+        print('Data from 1977 to 2020 is only available')
+        print('-'*60)
+        print()
+
+    elif start_year < 1977:
+        print(f'Data Till 1976 is not available.')
+        print(f'Data Will be Scraped only from 1977')
+        start_year = 1977
+        print('-'*60)
+        print()
+
     # with Spinner():
     # rows_list = parse(get_URL(2020))
     # make_csv(rows_list, HEADERS)
-    for year in range(start_year, end_year+1):
+    for year in range(start_year, min(end_year, 2020)+1):
 
         if year > 2020:
             print(f'Year Index Out of Range ')
@@ -168,3 +182,10 @@ if __name__ == '__main__':
         with Spinner():
             make_csv(rows_list, HEADERS, year)
         print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
+        print('\n')
+
+        print('-'*60)
+        print()
+
+    if end_year > 2020:
+        print('Sorry Future data is not Available -_-')
