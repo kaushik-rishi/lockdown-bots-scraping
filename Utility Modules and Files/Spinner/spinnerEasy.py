@@ -15,7 +15,7 @@ States of the Spinner :
 """
 
 
-class Spinner:
+class SpinnerEasy:
     busy = False
 
     # delay between two cursor changes
