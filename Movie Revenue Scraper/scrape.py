@@ -127,9 +127,10 @@ def parse(SERVICE_URL):
 #              Making DataFrames and CSV Files from the movie data             #
 # ---------------------------------------------------------------------------- #
 
-def make_csv(rows_list, headers):
+def make_csv(rows_list, headers, file_name):
     df = pd.DataFrame(rows_list, columns=headers)
-    df.to_csv('movies.csv', index=False)
+
+    df.to_csv(f'data/{file_name}-Box Office Collections.csv', index=False)
     # os.chdir('./data')
     # print(os.getcwd())
 
@@ -156,12 +157,14 @@ if __name__ == '__main__':
             break
 
         print(f'Extracting Data From {year}\'s Box Office Collections ...')
-        with SpinnerEasy():
+        # with SpinnerEasy():
+        with Spinner():
             rows_list = parse(get_URL(year))
         print(f'Done Extracting {year}\'s Box Office Collections ...')
         print('\n')
 
         print(f'Storing {year}\'s Box Office Collections into a CSV file')
-        with SpinnerEasy():
-            rows_list = parse(get_URL(year))
+        # with SpinnerEasy():
+        with Spinner():
+            make_csv(rows_list, HEADERS, year)
         print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
