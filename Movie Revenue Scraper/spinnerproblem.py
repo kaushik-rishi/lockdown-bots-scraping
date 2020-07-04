@@ -147,17 +147,22 @@ def make_csv(rows_list, headers, file_name):
 # ---------------------------------------------------------------------------- #
 
 def parse_and_save(year):
-
+    # BUG : Multi threading spinners are giving a bad time
     print(f'Extracting Data From {year}\'s Box Office Collections ...')
-
-    rows_list = parse(get_URL(year))
-
+    # with Spinner():
+    with Spinner():
+        rows_list = parse(get_URL(year))
     print(f'Done Extracting {year}\'s Box Office Collections ...')
+    print('\n')
+
     print(f'Storing {year}\'s Box Office Collections into a CSV file')
-
-    make_csv(rows_list, HEADERS, year)
-
+    # with Spinner():
+    with Spinner():
+        make_csv(rows_list, HEADERS, year)
     print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
+    print('\n')
+
+    print('-'*60, end='\n\n')
 
 
 # 🌈
@@ -202,10 +207,5 @@ if __name__ == '__main__':
 
     # --------------------------- Using Multi Threading -------------------------- #
     year_list = list(range(start_year, end_year+1))
-
-    """
-    All the downloading tasks will be launched at a time
-    """
-
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(parse_and_save, year_list)
