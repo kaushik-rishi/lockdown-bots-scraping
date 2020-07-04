@@ -12,6 +12,9 @@ import requests
 from bs4 import BeautifulSoup
 import lxml
 
+# for multithreading
+import concurrent.futures
+
 # for directory paths
 import os
 
@@ -127,6 +130,7 @@ def parse(SERVICE_URL):
 # ---------------------------------------------------------------------------- #
 
 def make_csv(rows_list, headers, file_name):
+
     df = pd.DataFrame(rows_list, columns=headers)
 
     df.to_csv(f'data/{file_name}-Box Office Collections.csv', index=False)
@@ -187,5 +191,13 @@ if __name__ == '__main__':
         print('Will be scraping from 1977')
         start_year = 1977
 
+    # ------------------------- Scraping in async manner ------------------------- #
+    """
     for year in range(start_year, min(end_year, 2020)+1):
         parse_and_save(year)
+    """
+
+    # --------------------------- Using Multi Threading -------------------------- #
+    year_list = list(range(start_year, end_year+1))
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(parse_and_save, year_list)
