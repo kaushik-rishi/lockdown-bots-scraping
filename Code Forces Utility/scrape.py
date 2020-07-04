@@ -193,6 +193,11 @@ def get_img_bytes(title_photo):
 
 """
 
+
+def get_from_db(id):
+    print(c)
+
+
 if __name__ == '__main__':
 
     # printing the menu
@@ -200,8 +205,15 @@ if __name__ == '__main__':
         print(fp.read())
 
     conn = sqlite3.Connection('friends.db')
+    c = conn.cursor()
 
     id = input()
-    [info, title_photo] = get_info_img(id)
+
+    print('Trying to fetch Users Profile from host : codeforces.com ...')
+
+    with Spinner():
+        [info, title_photo] = get_info_img(id)
+    if info is None or title_photo is None:
+        print('Invalid ')
     img_bytes = get_img_bytes(title_photo)
     information = get_information_dict(info)
