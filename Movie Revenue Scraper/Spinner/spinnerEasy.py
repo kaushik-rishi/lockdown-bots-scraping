@@ -3,7 +3,7 @@ import time
 import threading
 
 """
-Spinner Easy:
+Spinner :
 
 An easy spinner for consoles with less codec support
 
@@ -15,7 +15,7 @@ States of the Spinner :
 """
 
 
-class SpinnerEasy:
+class Spinner:
     busy = False
 
     # delay between two cursor changes
