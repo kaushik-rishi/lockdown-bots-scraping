@@ -30,7 +30,6 @@ from Spinner.spinner import Spinner
 
 # For utlitly
 import sys
-# sys.stdout = open('output.txt', 'w')
 
 # -------------------------------------------------------------------------- #
 
@@ -68,7 +67,6 @@ def get_HTML(url):
         html_response = response.content
         return html_response
 
-    # return None
     return ""
 
 
@@ -95,10 +93,11 @@ def parse(SERVICE_URL):
     main_html = get_HTML(SERVICE_URL)  # html of main file
     main_soup = BeautifulSoup(main_html, 'lxml')
 
-    # there is only one table in the whole page
+    # there is only one table in the whole web page
     tables = main_soup.findAll('table')[0]
+
+    # finding all the table rows (Each table row corresponds to each movie entry)
     table_rows = tables.findAll('tr')
-    # print(table_rows[0])
 
     # this is going to ba a list of lists
     rows_list = []
@@ -111,10 +110,7 @@ def parse(SERVICE_URL):
             tds = tr.findAll('td')
 
             for td in tds:
-                # print(td.text, end='     ')
                 row.append(td.text)
-
-            # print('\n\n')
 
         except:
             continue
@@ -134,8 +130,6 @@ def make_csv(rows_list, headers, file_name):
     df = pd.DataFrame(rows_list, columns=headers)
 
     df.to_csv(f'data/{file_name}-Box Office Collections.csv', index=False)
-    # os.chdir('./data')
-    # print(os.getcwd())
 
 
 # ---------------------------------------------------------------------------- #
@@ -157,22 +151,22 @@ def parse_and_save(year):
     print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
     print('\n')
 
-    print('-'*60)
-    print()
+    print('-'*60, end='\n\n')
 
 
 if __name__ == '__main__':
 
-    # for the csv file that we will be creating
+    # Table Headers for the csv file that we will be creating
     HEADERS = ['Rank', 'Release Group', 'Worldwide',
                'Domestic ($)', 'Domestic %', 'Foriegn ($)', 'Foriegn %']
 
     print('Data Available from 1977 to 2020')
-    print()
+    print('-'*60, end='\n\n')
 
     start_year = int(input('Enter the start year you want to parse from : '))
     end_year = int(input('Enter the year until which you want to parse : '))
 
+    # --------- Bunch of if conditions to check the validity of the input   -------- #
     if start_year > end_year:
         print('for now im swapping the start year and end year')
         t = start_year
@@ -193,30 +187,5 @@ if __name__ == '__main__':
         print('Will be scraping from 1977')
         start_year = 1977
 
-    """
-    # for scraping a single file
-    with Spinner():
-    rows_list = parse(get_URL(2020))
-    make_csv(rows_list, HEADERS)
-    """
     for year in range(start_year, min(end_year, 2020)+1):
         parse_and_save(year)
-
-"""
-        print(f'Extracting Data From {year}\'s Box Office Collections ...')
-        # with Spinner():
-        with Spinner():
-            rows_list = parse(get_URL(year))
-        print(f'Done Extracting {year}\'s Box Office Collections ...')
-        print('\n')
-
-        print(f'Storing {year}\'s Box Office Collections into a CSV file')
-        # with Spinner():
-        with Spinner():
-            make_csv(rows_list, HEADERS, year)
-        print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
-        print('\n')
-
-        print('-'*60)
-        print()
-"""
