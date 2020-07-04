@@ -4,7 +4,7 @@
 
 # for parsing
 from bs4 import BeautifulSoup
-import lxmlKz
+import lxml
 
 # for making requests and scraping the html
 import requests
@@ -12,18 +12,8 @@ import requests
 # for database management
 import sqlite3
 
-# for multithreading
-import concurrent.futures
-
 # for directory paths
 import os
-
-# for arguments
-import sys
-import datetime
-
-# for writing into csv files and saving the data
-import pandas as pd
 
 # For utlitly
 import sys
@@ -93,18 +83,3 @@ if __name__ == '__main__':
         # creating a cursor object
         c = conn.cursor()
     print('Connection Estabilished')
-
-    """
-        UserBox
-            - title-photo
-            - info
-                - div.badge
-                - div.main-info
-                    - div.user-rank (->span.xxx -> content(Text ✔))
-                    - h1 - a - spans - text
-                - ul
-                    - li*5
-                    - 
-    """
-
-    print('Hello World')
