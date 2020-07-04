@@ -15,6 +15,9 @@ import lxml
 # for directory paths
 import os
 
+# for arguments
+import sys
+
 # for writing into csv files and saving the data
 import pandas as pd
 import csv
@@ -22,7 +25,7 @@ import csv
 # For the spinners
 # from Spinner.spinner import Spinner
 from Spinner.spinner import Spinner
-from Spinner.spinnerEasy import SpinnerEasy
+# from Spinner.spinnerEasy import Spinner
 
 
 # For utlitly
@@ -75,17 +78,17 @@ def get_URL(year=2020):
     return ret_url
 
 
-def get_money(dollar):
+def get_money(dollar):  # currently not used in program => can be used for data analysis
     """
     converts $123,123,123(string) to 123123123(int)
     """
 
     return int(''.join(dollar[1:].split(',')))
 
+
 # ---------------------------------------------------------------------------- #
 #                               Parsing Function                               #
 # ---------------------------------------------------------------------------- #
-
 
 def parse(SERVICE_URL):
 
@@ -135,50 +138,80 @@ def make_csv(rows_list, headers, file_name):
     # print(os.getcwd())
 
 
+# ---------------------------------------------------------------------------- #
+#                   Parse and Save as csv(for MULTITHREADING)                  #
+# ---------------------------------------------------------------------------- #
+
+def parse_and_save(year):
+    print(f'Extracting Data From {year}\'s Box Office Collections ...')
+    # with Spinner():
+    with Spinner():
+        rows_list = parse(get_URL(year))
+    print(f'Done Extracting {year}\'s Box Office Collections ...')
+    print('\n')
+
+    print(f'Storing {year}\'s Box Office Collections into a CSV file')
+    # with Spinner():
+    with Spinner():
+        make_csv(rows_list, HEADERS, year)
+    print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
+    print('\n')
+
+    print('-'*60)
+    print()
+
+
 if __name__ == '__main__':
 
-    # start_year = 2017
-    # end_year = 2020
-
+    # for the csv file that we will be creating
     HEADERS = ['Rank', 'Release Group', 'Worldwide',
                'Domestic ($)', 'Domestic %', 'Foriegn ($)', 'Foriegn %']
+
+    print('Data Available from 1977 to 2020')
+    print()
 
     start_year = int(input('Enter the start year you want to parse from : '))
     end_year = int(input('Enter the year until which you want to parse : '))
 
-    if start_year < 1977 and end_year < 1977:
-        start_year = 1977
-        print('-_-')
-        print('Data from 1977 to 2020 is only available')
-        print('-'*60)
-        print()
+    if start_year > end_year:
+        print('for now im swapping the start year and end year')
+        t = start_year
+        start_year = end_year
+        end_year = t
 
-    elif start_year < 1977:
-        print(f'Data Till 1976 is not available.')
-        print(f'Data Will be Scraped only from 1977')
-        start_year = 1977
-        print('-'*60)
-        print()
+    if end_year < 1977:
+        print('Data Not available At all')
+        sys.exit("Invalid Ranges")
 
-    # with Spinner():
-    # rows_list = parse(get_URL(2020))
-    # make_csv(rows_list, HEADERS)
+    if end_year > 2020:
+        print('Sorry Future data is not Available -_-')
+        print('Will be scraping only till 2020')
+        end_year = 2020
+
+    if start_year < 1977:
+        print('Data Available only from 1977')
+        print('Will be scraping from 1977')
+        start_year = 1977
+
+    """
+    # for scraping a single file
+    with Spinner():
+    rows_list = parse(get_URL(2020))
+    make_csv(rows_list, HEADERS)
+    """
     for year in range(start_year, min(end_year, 2020)+1):
+        parse_and_save(year)
 
-        if year > 2020:
-            print(f'Year Index Out of Range ')
-            print(f'Still i have parse till {year-1}')
-            break
-
+"""
         print(f'Extracting Data From {year}\'s Box Office Collections ...')
-        # with SpinnerEasy():
+        # with Spinner():
         with Spinner():
             rows_list = parse(get_URL(year))
         print(f'Done Extracting {year}\'s Box Office Collections ...')
         print('\n')
 
         print(f'Storing {year}\'s Box Office Collections into a CSV file')
-        # with SpinnerEasy():
+        # with Spinner():
         with Spinner():
             make_csv(rows_list, HEADERS, year)
         print(f'Done Storing {year}\'s Box Office Collections into a CSV file')
@@ -186,6 +219,4 @@ if __name__ == '__main__':
 
         print('-'*60)
         print()
-
-    if end_year > 2020:
-        print('Sorry Future data is not Available -_-')
+"""
