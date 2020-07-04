@@ -147,6 +147,7 @@ def make_csv(rows_list, headers, file_name):
 # ---------------------------------------------------------------------------- #
 
 def parse_and_save(year):
+    # BUG : Multi threading spinners are giving a bad time
     print(f'Extracting Data From {year}\'s Box Office Collections ...')
     # with Spinner():
     with Spinner():
