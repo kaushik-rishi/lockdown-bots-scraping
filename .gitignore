@@ -4,10 +4,16 @@ input.txt
 
 # temporary files
 temp.*
+
+# practise files
 practise.*
+plotpractise.ipynb
 
 # debug log files
 *.log
 
 # some utility files
 box_table.html
+
+# other file
+spinnerproblem.py

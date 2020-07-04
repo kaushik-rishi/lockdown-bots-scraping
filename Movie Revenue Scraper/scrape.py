@@ -1,3 +1,7 @@
+"""
+Revenue Scraping main file : Implemented using multithreading
+"""
+
 # ---------------------------------------------------------------------------- #
 #                               Import Statements                              #
 # ---------------------------------------------------------------------------- #
@@ -23,7 +27,7 @@ import sys
 
 # for writing into csv files and saving the data
 import pandas as pd
-import csv
+
 
 # For the spinners
 # from Spinner.spinner import Spinner

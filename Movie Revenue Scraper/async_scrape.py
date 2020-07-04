@@ -1,3 +1,8 @@
+"""
+Scrapes the Revenue asynchronously one by one
+"""
+
+
 # ---------------------------------------------------------------------------- #
 #                               Import Statements                              #
 # ---------------------------------------------------------------------------- #
@@ -20,7 +25,7 @@ import sys
 
 # for writing into csv files and saving the data
 import pandas as pd
-import csv
+
 
 # For the spinners
 # from Spinner.spinner import Spinner
