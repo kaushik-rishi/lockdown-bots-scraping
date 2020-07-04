@@ -131,6 +131,12 @@ def parse(SERVICE_URL):
 
 def make_csv(rows_list, headers, file_name):
 
+    # make a directory "data" if it does not exist
+    try:
+        os.makedirs('data')
+    except:
+        pass
+
     df = pd.DataFrame(rows_list, columns=headers)
 
     df.to_csv(f'data/{file_name}-Box Office Collections.csv', index=False)
@@ -158,6 +164,7 @@ def parse_and_save(year):
     print('-'*60, end='\n\n')
 
 
+# 🌈
 if __name__ == '__main__':
 
     # Table Headers for the csv file that we will be creating

@@ -129,6 +129,10 @@ def parse(SERVICE_URL):
 def make_csv(rows_list, headers, file_name):
 
     # make a directory "data" if it does not exist
+    try:
+        os.makedirs('data')
+    except:
+        pass
 
     df = pd.DataFrame(rows_list, columns=headers)
 
@@ -136,7 +140,7 @@ def make_csv(rows_list, headers, file_name):
 
 
 # ---------------------------------------------------------------------------- #
-#                   Parse and Save as csv(for MULTITHREADING)                  #
+#                   Parse and Save as csv                  #
 # ---------------------------------------------------------------------------- #
 
 def parse_and_save(year):
@@ -191,7 +195,6 @@ if __name__ == '__main__':
         start_year = 1977
 
     # ------------------------- Scraping in async manner ------------------------- #
-    
+
     for year in range(start_year, min(end_year, 2020)+1):
         parse_and_save(year)
-    
