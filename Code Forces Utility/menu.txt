@@ -3,7 +3,6 @@
 ------------------------------------------------------------
 
 d - to download a paticular submission onto your local machine
-v - visualise all your current friends data on a bar graph
 u - update your friends database and view changes
 a - add a friend to the database
 r - remove a friend from the database
