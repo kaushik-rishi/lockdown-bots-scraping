@@ -29,9 +29,7 @@ import pandas as pd
 
 # For the spinners
 # from Spinner.spinner import Spinner
-from Spinner.spinner import Spinner
-# from Spinner.spinnerEasy import Spinner
-
+from Spinner.spinnerEasy import Spinner
 
 # For utlitly
 import sys

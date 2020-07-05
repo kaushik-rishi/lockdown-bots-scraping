@@ -316,6 +316,10 @@ if __name__ == '__main__':
                     profile_found = True
                     img_bytes = get_img_bytes(title_photo)
                     information = get_information_dict(info)
+                    print(tabulate(
+                        [[k,information[k]] for k in information ],
+                        headers = ['Username', f'{id}']
+                    ))
 
             if profile_found:
                 pp = input('Want to Download his profile photo (Y/N) ?')
