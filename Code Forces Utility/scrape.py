@@ -7,6 +7,10 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 import lxml
 
+
+# for html unescaping >= Python 3.5:
+from html import unescape
+
 # for making requests and scraping the html
 import requests
 
@@ -27,6 +31,9 @@ from Spinner.spinner import Spinner
 # ---------------------------------------------------------------------------- #
 #                               Utility Functions                              #
 # ---------------------------------------------------------------------------- #
+
+BASE_DIR = os.getcwd()
+
 
 def urlJoin(service, attach):
     """
@@ -190,7 +197,6 @@ def get_img_bytes(title_photo):
     with open('pp.jpg', 'wb') as fp:
     fp.write(img_bytes)
     pprint(information)
-
 """
 
 
@@ -201,6 +207,27 @@ def get_from_db(id):
 def download_sub(subid, contestid):
     url = f"https://codeforces.com/contest/{contestid}/submission/{subid}"
 
+    try:
+        os.makedirs('Downloaded Submissions')
+    except:
+        pass
+
+    os.chdir('Downloaded Submissions')
+    print(os.getcwd())
+
+    try:
+        soup = BeautifulSoup(get_HTML(url), 'lxml')
+        code = soup.find('pre', {"id": "program-source-text"}).text
+        code = unescape(code)
+        filename = f'{contestid} - {subid}.cpp'
+        with open(filename, 'w') as fp:
+            fp.write(code)
+    except:
+        pass
+
+    os.chdir(BASE_DIR)
+    print(os.getcwd())
+
 
 if __name__ == '__main__':
 
@@ -210,18 +237,22 @@ if __name__ == '__main__':
 
     choice = input(' => ')
 
-    conn = sqlite3.Connection('friends.db')
-    c = conn.cursor()
+    # conn = sqlite3.Connection('friends.db')
+    # c = conn.cursor()
 
-    id = input()
+    # id = input()
 
-    print('Trying to fetch Users Profile from host : codeforces.com ...')
+    # print('Trying to fetch Users Profile from host : codeforces.com ...')
 
-    with Spinner():
-        [info, title_photo] = get_info_img(id)
-    if info is None or title_photo is None:
-        print('Invalid Handle')
-        # continue
+    # with Spinner():
+    #     [info, title_photo] = get_info_img(id)
+    # if info is None or title_photo is None:
+    #     print('Invalid Handle')
+    #     # continue
 
-    img_bytes = get_img_bytes(title_photo)
-    information = get_information_dict(info)
+    # img_bytes = get_img_bytes(title_photo)
+    # information = get_information_dict(info)
+
+    cid = input('contest id : ')
+    sid = input('submission id : ')
+    download_sub(sid, cid)
