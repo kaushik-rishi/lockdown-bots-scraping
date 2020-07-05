@@ -2,5 +2,3 @@ u - update the database (and shows changes)
 s {statename} - status of the state
 t - tabulate all states data
 q - quit
-
-------------------------------------------------
