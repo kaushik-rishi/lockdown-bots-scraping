@@ -1,0 +1,212 @@
+{
+    "Andaman and Nicobar Islands": {
+        "active": 53,
+        "cured": 66,
+        "deaths": 0,
+        "totalconf": 119
+    },
+    "Andhra Pradesh": {
+        "active": 9473,
+        "cured": 8008,
+        "deaths": 218,
+        "totalconf": 17699
+    },
+    "Arunachal Pradesh": {
+        "active": 182,
+        "cured": 76,
+        "deaths": 1,
+        "totalconf": 259
+    },
+    "Assam": {
+        "active": 3997,
+        "cured": 6657,
+        "deaths": 14,
+        "totalconf": 10668
+    },
+    "Bihar": {
+        "active": 2925,
+        "cured": 8686,
+        "deaths": 89,
+        "totalconf": 11700
+    },
+    "Chandigarh": {
+        "active": 59,
+        "cured": 395,
+        "deaths": 6,
+        "totalconf": 460
+    },
+    "Chhattisgarh": {
+        "active": 598,
+        "cured": 2549,
+        "deaths": 14,
+        "totalconf": 3161
+    },
+    "Dadra and Nagar Haveli and Daman and Diu": {
+        "active": 175,
+        "cured": 96,
+        "deaths": 0,
+        "totalconf": 271
+    },
+    "Delhi": {
+        "active": 25940,
+        "cured": 68256,
+        "deaths": 3004,
+        "totalconf": 97200
+    },
+    "Goa": {
+        "active": 853,
+        "cured": 825,
+        "deaths": 6,
+        "totalconf": 1684
+    },
+    "Gujarat": {
+        "active": 7981,
+        "cured": 25406,
+        "deaths": 1925,
+        "totalconf": 35312
+    },
+    "Haryana": {
+        "active": 4031,
+        "cured": 12257,
+        "deaths": 260,
+        "totalconf": 16548
+    },
+    "Himachal Pradesh": {
+        "active": 331,
+        "cured": 704,
+        "deaths": 11,
+        "totalconf": 1046
+    },
+    "Jammu and Kashmir": {
+        "active": 2976,
+        "cured": 5143,
+        "deaths": 127,
+        "totalconf": 8246
+    },
+    "Jharkhand": {
+        "active": 687,
+        "cured": 2035,
+        "deaths": 17,
+        "totalconf": 2739
+    },
+    "Karnataka": {
+        "active": 11970,
+        "cured": 9244,
+        "deaths": 335,
+        "totalconf": 21549
+    },
+    "Kerala": {
+        "active": 2131,
+        "cured": 3048,
+        "deaths": 25,
+        "totalconf": 5204
+    },
+    "Ladakh": {
+        "active": 178,
+        "cured": 826,
+        "deaths": 1,
+        "totalconf": 1005
+    },
+    "Madhya Pradesh": {
+        "active": 2772,
+        "cured": 11234,
+        "deaths": 598,
+        "totalconf": 14604
+    },
+    "Maharashtra": {
+        "active": 83311,
+        "cured": 108082,
+        "deaths": 8671,
+        "totalconf": 200064
+    },
+    "Manipur": {
+        "active": 658,
+        "cured": 667,
+        "deaths": 0,
+        "totalconf": 1325
+    },
+    "Meghalaya": {
+        "active": 18,
+        "cured": 43,
+        "deaths": 1,
+        "totalconf": 62
+    },
+    "Mizoram": {
+        "active": 34,
+        "cured": 130,
+        "deaths": 0,
+        "totalconf": 164
+    },
+    "Nagaland": {
+        "active": 335,
+        "cured": 228,
+        "deaths": 0,
+        "totalconf": 563
+    },
+    "Odisha": {
+        "active": 2633,
+        "cured": 5934,
+        "deaths": 34,
+        "totalconf": 8601
+    },
+    "Puducherry": {
+        "active": 459,
+        "cured": 331,
+        "deaths": 12,
+        "totalconf": 802
+    },
+    "Punjab": {
+        "active": 1641,
+        "cured": 4306,
+        "deaths": 162,
+        "totalconf": 6109
+    },
+    "Rajasthan": {
+        "active": 3445,
+        "cured": 15640,
+        "deaths": 447,
+        "totalconf": 19532
+    },
+    "Sikkim": {
+        "active": 45,
+        "cured": 58,
+        "deaths": 0,
+        "totalconf": 103
+    },
+    "Tamil Nadu": {
+        "active": 44959,
+        "cured": 60592,
+        "deaths": 1450,
+        "totalconf": 107001
+    },
+    "Telangana": {
+        "active": 10487,
+        "cured": 11537,
+        "deaths": 288,
+        "totalconf": 22312
+    },
+    "Tripura": {
+        "active": 343,
+        "cured": 1202,
+        "deaths": 1,
+        "totalconf": 1546
+    },
+    "Uttarakhand": {
+        "active": 549,
+        "cured": 2502,
+        "deaths": 42,
+        "totalconf": 3093
+    },
+    "Uttar Pradesh": {
+        "active": 7627,
+        "cured": 18154,
+        "deaths": 773,
+        "totalconf": 26554
+    },
+    "West Bengal": {
+        "active": 6329,
+        "cured": 14166,
+        "deaths": 736,
+        "totalconf": 21231
+    }
+}
