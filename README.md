@@ -1,6 +1,11 @@
 # Web-Scraping-Project
 **Web scraping project for IIITS - IOTA Hackathon**
 
+This is a utility tool comprising of three favourite topics during the quarnatine
+- May be you want the check the movie revenues
+- Need Friends Codeforces rating updates during coding in a click
+- Covid - 19 Updates in a click
+
 # Setup
 ----
 > You could also setup a virtual environment for this
