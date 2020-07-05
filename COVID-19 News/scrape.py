@@ -21,6 +21,7 @@ from Spinner.spinnerEasy import Spinner
 import json
 from JSON_handling.json_utils import *  # load_from_DB and save_to_DB
 
+# we will be scraping the government of india website
 URL = 'https://www.mohfw.gov.in/'
 
 DB_NAME = 'database.json'
@@ -32,6 +33,9 @@ TABLE_HEADERS = ['state/union territory',
 
 
 def print_menu():
+    """
+        prints the menu related to my program
+    """
 
     print('-'*40, 'Covid 19 Reporter', '-'*40, end='\n\n')
 
@@ -44,6 +48,9 @@ def print_menu():
 
 
 def get_table():
+    """
+        gets the table html
+    """
 
     try:
         resp = requests.get(URL)
@@ -57,6 +64,10 @@ def get_table():
 
 
 def turn_into_dict(table):
+    """
+        given some html of table this turns it into a 
+        dictionary of key value pairs
+    """
 
     if table is None:
         return None
@@ -86,10 +97,15 @@ def turn_into_dict(table):
 
         information[state] = info_each
 
-    return information
+    return information  # returning the dictionary
 
 
 def update():
+    """
+        updates the database with new values
+        prints the changed value
+        and saves the new values to the database
+    """
 
     table = get_table()
     cur_info = turn_into_dict(table)
@@ -146,6 +162,10 @@ def update():
 
 
 def show_table():
+    """
+        first updates the database
+        prints the table of all the users using the tabulate library
+    """
 
     print('Updating the Database')
     with Spinner():
@@ -169,6 +189,9 @@ def show_table():
 
 
 def status_state(state):
+    """
+        prints the status of a single state
+    """
 
     information = load_frm_DB(DB_NAME)
     notfound = True
@@ -179,9 +202,13 @@ def status_state(state):
             notfound = False
             print(tabulate(
                 [[k, s_info[k]] for k in s_info],
-                headers=TABLE_HEADERS,
+                headers=[
+                    'state/union territory',
+                    states
+                ],
                 tablefmt='psql'
             ))
+            break
 
     if notfound:
         print('No such State Found')
@@ -190,34 +217,38 @@ def status_state(state):
 # 🌈
 if __name__ == '__main__':
 
-    if os.path.exists('database.json') == False:
+    # if database dows not exist
+    if os.path.exists('database.json') == False or len(open('database.json', 'r').read().strip()) == 0:
 
+        # create a new empty database
         with open('database.json', 'w') as fp:
             fp.write('{}')
             pass
 
-    print_menu()
+    print_menu()  # printing the menu
 
+    # input loop
     while(True):
 
         choice = input('Enter Choice => ')
 
-        if choice == 'q':
+        if choice == 'q':  # quit
             exit()
 
-        elif choice == 'u':
+        elif choice == 'u':  # update the DB
             print('Updating the Database')
             with Spinner():
                 update()
             print('Done Updating ...')
 
-        elif choice == 't':
+        elif choice == 't':  # show the table
             show_table()
 
+        # show the status of one particular state
         elif len(choice) >= 2 and choice[0] == 's':
             choice = choice.split(' ')
-            state = choice[1]
+            state = ' '.join(choice[1:])
             status_state(state)
 
-        else:
+        else:  # wrong choice
             print('Wrong Option Please Try Again')

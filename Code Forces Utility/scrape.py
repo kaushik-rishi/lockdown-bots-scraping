@@ -172,6 +172,9 @@ def get_img_bytes(title_photo):
 
 
 def download_sub(subid, contestid):
+    """
+        download the submission based on contest id and submission id
+    """
     url = f"https://codeforces.com/contest/{contestid}/submission/{subid}"
 
     try:
@@ -198,7 +201,33 @@ def download_sub(subid, contestid):
 # ---------------------------------------------------------------------------- #
 
 
+def update():
+    """
+        updates the database with new ratings contribution changes and display them
+    """
+    data = load_frm_DB(DB_NAME)
+
+    for frnd in data:
+        old_frnd = data[frnd]
+        cur_frnd = get_information_dict(get_info_img(frnd)[0])
+        if old_frnd == cur_frnd:
+            continue
+
+        data[frnd] = cur_frnd
+        for key in old_frnd:
+            if old_frnd[key] != cur_frnd[key]:
+                print(key, end=' : ')
+                print(old_frnd[key], end=' -> ')
+                print(cur_frnd[key])
+
+    save_to_DB(data, DB_NAME)
+
+
 def addFrnd(id):
+    """
+        adds a friend to the database
+    """
+
     data = load_frm_DB(DB_NAME)
 
     if id in data.keys():
@@ -215,6 +244,10 @@ def addFrnd(id):
 
 
 def removeFrnd(id):
+    """
+        removes a friend from the database
+    """
+
     data = load_frm_DB(DB_NAME)
     if id not in data.keys():
         print(f'{id} no longer exists in the database')
@@ -224,6 +257,9 @@ def removeFrnd(id):
 
 
 def show_table():
+    """
+        prints the data in tabulated forms
+    """
 
     info = load_frm_DB(DB_NAME)
     to_tabulate = []  # list of id, all props
@@ -241,6 +277,7 @@ def show_table():
     print(tabulate(to_tabulate, headers=TABLE_HEADERS, tablefmt='psql'))
 
 
+# 🌈
 if __name__ == '__main__':
 
     if os.path.exists(DB_NAME) == False or len(open('database.json', 'r').read().strip()) == 0:
@@ -309,24 +346,3 @@ if __name__ == '__main__':
 
         else:
             print('Wrong Choice Dude')
-
-
-# Page Structure
-"""
-    UserBox
-        - title-photo
-        - info
-            - div.badge
-            - div.main-info
-                - div.user-rank (->span.xxx -> content(Text ✔))
-                - h1 - a - spans - text
-            - ul
-                - li*5
-"""
-
-# Data Extraction Example
-"""    
-    with open('pp.jpg', 'wb') as fp:
-    fp.write(img_bytes)
-    pprint(information)
-"""

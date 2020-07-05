@@ -30,10 +30,8 @@ import pandas as pd
 
 
 # For the spinners
-# from Spinner.spinner import Spinner
 from Spinner.spinner import Spinner
 # from Spinner.spinnerEasy import Spinner
-
 
 # For utlitly
 import sys
@@ -209,6 +207,7 @@ if __name__ == '__main__':
 
     """
     All the downloading tasks will be launched at a time
+    Multithreading is used to launch multiple IO bound tasks
     """
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
