@@ -1,0 +1,8 @@
+- To run the movie revenue scraper
+./runscrapers.sh --movie
+
+- To run the codeforces stalker
+./runscrapers.sh --cf
+
+- To run the covid 19 scraper
+./runscrapers.sh --covid

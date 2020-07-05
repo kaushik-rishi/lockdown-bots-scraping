@@ -9,6 +9,12 @@ cd <project directory>
 pip install -r requirements.txt
 ```
 
+### The utlity tool is executed using bash script
+```bash
+cd <project directory>
+./runscrapers.sh --help
+```
+to display possible options
 
 ## **Web Scraper 1 : Movie Revenue scraper 🎥**
 ----
@@ -28,12 +34,12 @@ pip install -r requirements.txt
   - to run the normal download code
   ```bash
     cd <project directory>
-    ./runscrapers --movie-async
+    ./runscrapers.sh --movie-async
   ```
   - To run the multi threading code
   ```bash
     cd <project directory>
-    ./runscrapers --movie
+    ./runscrapers.sh --movie
   ```
 
 
@@ -57,7 +63,7 @@ pip install -r requirements.txt
   - To run the script
   ```bash
     cd <project directory>
-    ./runscrapers --cf
+    ./runscrapers.sh --cf
   ```
 
 ## **Web Scraper 3 : COVID-19 NEWS Assist 🦠**
@@ -78,7 +84,7 @@ pip install -r requirements.txt
     - To run the script
   ```bash
     cd <project directory>
-    ./runscrapers --covid
+    ./runscrapers.sh --covid
   ```
 
 ### Further things that can be done

@@ -27,12 +27,12 @@ elif [[ "$1" == '--covid' ]]; then
 	cd ./COVID19-News
 	python scrape.py
 	# cd ..
-elif [[ "$1" == '--covid-news' ]]; then
-	#statements
-	cd ./COVID19-News
-	python news.py
-	# cd ..
+# elif [[ "$1" == '--covid-news' ]]; then
+# 	#statements
+# 	cd ./COVID19-News
+# 	python news.py
+# 	# cd ..
 elif [[ "$1" == '--help' ]]; then
 	#statements
-	echo "Help"
+	cat mainmenu.txt
 fi
