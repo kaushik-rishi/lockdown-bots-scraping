@@ -7,32 +7,24 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 import lxml
 
+import requests  # for making requests and scraping the html
+import os  # for directory paths
+from tabulate import tabulate  # for making tables
 
 # for html unescaping >= Python 3.5:
 from html import unescape
 
-# for making requests and scraping the html
-import requests
-
-# for database management
-import sqlite3
-
-# for directory paths
-import os
-
-# for arguments
-import sys
+# for handling json
+from JSON_handling.json_utils import *
 
 # For the spinners
-from Spinner.spinner import Spinner
-# from Spinner.spinnerEasy import Spinner
+# from Spinner.spinner import Spinner
+from Spinner.spinnerEasy import Spinner
 
-
-# ---------------------------------------------------------------------------- #
-#                               Utility Functions                              #
-# ---------------------------------------------------------------------------- #
 
 BASE_DIR = os.getcwd()
+DB_NAME = 'database.json'
+TABLE_HEADERS = ['Username', 'Rating', 'Friends', 'Last Seen', 'Registered']
 
 
 def urlJoin(service, attach):
@@ -144,7 +136,7 @@ def get_information_dict(info):
 
         if temp[0] == 'Contest rating':
             temp[0] = 'rating'
-            temp[1] = int(temp[1][:4])
+            temp[1] = int(''.join(temp[1][:4].split(',')))
 
         if temp[0] == 'Contribution':
             temp[0] = 'contribution'
@@ -152,7 +144,7 @@ def get_information_dict(info):
 
         if temp[0] == 'Friend of':
             temp[0] = 'friends'
-            temp[1] = int(temp[1].split(' ')[0])
+            temp[1] = int(''.join((temp[1].split(' ')[0]).split(',')))
 
         if temp[0] == 'Last visit':
             temp[0] = 'lastseen'
@@ -179,6 +171,146 @@ def get_img_bytes(title_photo):
     return profile_pic
 
 
+def download_sub(subid, contestid):
+    url = f"https://codeforces.com/contest/{contestid}/submission/{subid}"
+
+    try:
+        os.makedirs('Downloaded Submissions')
+    except:
+        pass
+
+    os.chdir('Downloaded Submissions')
+
+    try:
+        soup = BeautifulSoup(get_HTML(url), 'lxml')
+        code = soup.find('pre', {"id": "program-source-text"}).text
+        code = unescape(code)
+        filename = f'{contestid} - {subid}.cpp'
+        with open(filename, 'w') as fp:
+            fp.write(code)
+    except Exception as e:
+        print('Please enter correct contest id and submission id')
+
+    os.chdir(BASE_DIR)
+
+# ---------------------------------------------------------------------------- #
+#                             Altering the database                            #
+# ---------------------------------------------------------------------------- #
+
+
+def addFrnd(id):
+    data = load_frm_DB(DB_NAME)
+
+    if id in data.keys():
+        print(f'{id} was aldready been added')
+        return
+    try:
+        each_dict = get_information_dict(get_info_img(id)[0])
+        data[id] = each_dict
+    except:
+        print('No such User exists')
+        return
+    save_to_DB(data, DB_NAME)
+    print(f'{id} added')
+
+
+def removeFrnd(id):
+    data = load_frm_DB(DB_NAME)
+    if id not in data.keys():
+        print(f'{id} no longer exists in the database')
+        return
+    del data[id]
+    save_to_DB(data, DB_NAME)
+
+
+def show_table():
+
+    info = load_frm_DB(DB_NAME)
+    to_tabulate = []  # list of id, all props
+
+    for each_frnd in info.keys():
+
+        l = []
+        l.append(each_frnd)
+
+        for prop in info[each_frnd]:
+            l.append(info[each_frnd][prop])
+
+        to_tabulate.append(l)
+
+    print(tabulate(to_tabulate, headers=TABLE_HEADERS, tablefmt='psql'))
+
+
+if __name__ == '__main__':
+
+    if os.path.exists(DB_NAME) == False or len(open('database.json', 'r').read().strip()) == 0:
+        with open(DB_NAME, 'w') as fp:
+            fp.write('{}')  # empty database
+
+    # printing the menu
+    with open('menu.txt', 'r') as fp:
+        print(fp.read())
+
+    while True:
+        choice = input(' => ')
+
+        if choice == 'q':
+            exit()
+
+        elif choice == 'u':
+            update()
+
+        elif choice == 'gall':
+            show_table()
+
+        elif len(choice) > 2 and choice[0] == 'g':
+            id = choice.split(' ')[1]
+
+            print('Trying to fetch Users Profile from host : codeforces.com ...')
+
+            profile_found = False
+
+            with Spinner():
+                [info, title_photo] = get_info_img(id)
+                if info is None or title_photo is None:
+                    print('Invalid Handle')
+                    # continue
+                else:
+                    profile_found = True
+                    img_bytes = get_img_bytes(title_photo)
+                    information = get_information_dict(info)
+
+            if profile_found:
+                pp = input('Want to Download his profile photo (Y/N) ?')
+                if pp == 'Y':
+                    try:
+                        os.makedirs('Profile Photos')
+                    except:
+                        pass
+
+                    os.chdir('Profile Photos')
+                    with open(f'{id}.jpg', 'wb') as fp:
+                        fp.write(img_bytes)
+
+                    os.chdir(BASE_DIR)
+
+        elif choice == 'a':
+            id = input('ID of the friend you want to add : ')
+            addFrnd(id)
+
+        elif choice == 'r':
+            id = input('ID of the friend you want to remove : ')
+            removeFrnd(id)
+
+        elif choice == 'd':
+            cid = input('contest id : ')
+            sid = input('submission id : ')
+            download_sub(sid, cid)
+
+        else:
+            print('Wrong Choice Dude')
+
+
 # Page Structure
 """
     UserBox
@@ -198,61 +330,3 @@ def get_img_bytes(title_photo):
     fp.write(img_bytes)
     pprint(information)
 """
-
-
-def get_from_db(id):
-    print(c)
-
-
-def download_sub(subid, contestid):
-    url = f"https://codeforces.com/contest/{contestid}/submission/{subid}"
-
-    try:
-        os.makedirs('Downloaded Submissions')
-    except:
-        pass
-
-    os.chdir('Downloaded Submissions')
-    print(os.getcwd())
-
-    try:
-        soup = BeautifulSoup(get_HTML(url), 'lxml')
-        code = soup.find('pre', {"id": "program-source-text"}).text
-        code = unescape(code)
-        filename = f'{contestid} - {subid}.cpp'
-        with open(filename, 'w') as fp:
-            fp.write(code)
-    except:
-        pass
-
-    os.chdir(BASE_DIR)
-    print(os.getcwd())
-
-
-if __name__ == '__main__':
-
-    # printing the menu
-    with open('menu.txt', 'r') as fp:
-        print(fp.read())
-
-    choice = input(' => ')
-
-    # conn = sqlite3.Connection('friends.db')
-    # c = conn.cursor()
-
-    # id = input()
-
-    # print('Trying to fetch Users Profile from host : codeforces.com ...')
-
-    # with Spinner():
-    #     [info, title_photo] = get_info_img(id)
-    # if info is None or title_photo is None:
-    #     print('Invalid Handle')
-    #     # continue
-
-    # img_bytes = get_img_bytes(title_photo)
-    # information = get_information_dict(info)
-
-    cid = input('contest id : ')
-    sid = input('submission id : ')
-    download_sub(sid, cid)

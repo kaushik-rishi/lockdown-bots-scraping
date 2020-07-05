@@ -216,7 +216,6 @@ if __name__ == '__main__':
 
         elif len(choice) >= 2 and choice[0] == 's':
             choice = choice.split(' ')
-            print(choice)
             state = choice[1]
             status_state(state)
 

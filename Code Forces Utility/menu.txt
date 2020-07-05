@@ -1,12 +1,15 @@
-Welcome to Codeforces Utility Tool:
 ------------------------------------------------------------
-d - to download a submission onto your local machine
+----------- Welcome to Codeforces Utility Tool -------------
+------------------------------------------------------------
+
+d - to download a paticular submission onto your local machine
 v - visualise all your current friends data on a bar graph
 u - update your friends database and view changes
 a - add a friend to the database
 r - remove a friend from the database
 g {username} - get the details of specific user
-g - get the details of all the users
+gall - get the details of all the users currently in database
 q - quit from the program
+
 ------------------------------------------------------------
 
