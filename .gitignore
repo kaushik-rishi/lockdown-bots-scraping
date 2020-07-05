@@ -17,3 +17,18 @@ box_table.html
 
 # other file
 spinnerproblem.py
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+env.bak/
+venv.bak/
