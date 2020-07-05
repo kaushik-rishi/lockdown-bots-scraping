@@ -198,11 +198,17 @@ def get_from_db(id):
     print(c)
 
 
+def download_sub(subid, contestid):
+    url = f"https://codeforces.com/contest/{contestid}/submission/{subid}"
+
+
 if __name__ == '__main__':
 
     # printing the menu
     with open('menu.txt', 'r') as fp:
         print(fp.read())
+
+    choice = input(' => ')
 
     conn = sqlite3.Connection('friends.db')
     c = conn.cursor()
@@ -214,6 +220,8 @@ if __name__ == '__main__':
     with Spinner():
         [info, title_photo] = get_info_img(id)
     if info is None or title_photo is None:
-        print('Invalid ')
+        print('Invalid Handle')
+        # continue
+
     img_bytes = get_img_bytes(title_photo)
     information = get_information_dict(info)
